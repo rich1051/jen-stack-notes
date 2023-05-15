@@ -37,6 +37,33 @@ let jokes = [
 // serve back static files
 app.use(express.static('server/public'));
 
+app.get('/laugh', function(req, res) {
+
+  // console.logging to ensure request is working:
+      console.log('Request for /laugh was made');
+      console.log(jokes)
+  
+  // responds with the jokes array of objects:
+      res.send(jokes);
+  });
+
+app.post('/joke', function(req, res) {
+  let whoseJoke = req.body.whoseJoke
+  let jokeQuestion = req.body.jokeQuestion
+  let punchLine = req.body.punchLine
+  
+  jokeArray = {
+    whoseJoke,
+    jokeQuestion,
+    punchLine,
+  };
+
+  jokes.push(jokeArray);
+  res.sendStatus(201);
+});
+
+
+
 app.listen(PORT, () => {
   console.log('server running on: ', PORT);
 }); // end spin up server
